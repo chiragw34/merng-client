@@ -1,6 +1,16 @@
 import React, { useContext, useState, useRef } from "react";
 import gql from "graphql-tag";
-import { Grid, Button, Form, Card, Icon, Label, Image, Popup } from "semantic-ui-react";
+import {
+  Grid,
+  Loader,
+  Button,
+  Form,
+  Card,
+  Icon,
+  Label,
+  Image,
+  Popup
+} from "semantic-ui-react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import moment from "moment";
 
@@ -11,39 +21,43 @@ import { AuthContext } from "../context/auth";
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
-  const commentInputRef = useRef(null)
+  const commentInputRef = useRef(null);
 
-  const [comment, setComment]= useState('')
+  const [comment, setComment] = useState("");
 
   let getPost = "";
-  const { loading,data } = useQuery(FETCH_POST_QUERY, {
+  const { loading, data } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId
     }
   });
 
   if (data) {
-    getPost = data.getPost
+    getPost = data.getPost;
   }
 
   const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
-    update(){
-      setComment('');
+    update() {
+      setComment("");
       commentInputRef.current.blur();
     },
-    variables:{
+    variables: {
       postId,
-      body:comment
+      body: comment
     }
-  })
+  });
 
-  function deletePostCallback(){
-    props.history.push('/')
+  function deletePostCallback() {
+    props.history.push("/");
   }
 
   let postMarkup;
   if (loading) {
-    postMarkup = <h1 className="loading">Loading...</h1>;
+    postMarkup = (
+      <Loader active inline="centered" size="big">
+        Fetching post...
+      </Loader>
+    );
   } else {
     const {
       id,
@@ -59,14 +73,14 @@ function SinglePost(props) {
     postMarkup = (
       <Grid>
         <Grid.Row>
-          <Grid.Column width={2}>
+          <Grid.Column width={3}>
             <Image
-              floated="right"
+              className="profile-pic"
               size="small"
               src="https://react.semantic-ui.com/images/avatar/large/molly.png"
             />
           </Grid.Column>
-          <Grid.Column width={10}>
+          <Grid.Column width={9}>
             <Card fluid>
               <Card.Content>
                 <Card.Header>{username}</Card.Header>
@@ -153,17 +167,19 @@ function SinglePost(props) {
 }
 
 const CREATE_COMMENT_MUTATION = gql`
-  mutation($postId: String!, $body:String!){
-    createComment(postId: $postId, body:$body){
+  mutation($postId: String!, $body: String!) {
+    createComment(postId: $postId, body: $body) {
       id
-      comments{
+      comments {
         id
-        body createdAt username
+        body
+        createdAt
+        username
       }
       commentCount
     }
   }
-`
+`;
 
 const FETCH_POST_QUERY = gql`
   query($postId: ID!) {

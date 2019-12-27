@@ -33,7 +33,6 @@ function Home() {
         </Grid.Row>
         <Grid.Row>
           {loading ? (
-            // <h1 className='loading-text'>LOADING POSTS...</h1>
             <Loader active inline="centered" size="big">Fetching posts...</Loader>
           ) : (
             <Transition.Group>

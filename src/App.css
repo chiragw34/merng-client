@@ -1,38 +1,55 @@
-.page-title{
-    display: block !important;
-    text-align: center;
-    font-size: 2rem;
-    margin-top: 0px;
+.page-title {
+  display: block !important;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 0px;
 }
 
-.form-container{
-    width: 400px;
-    margin: auto;
+.form-container {
+  width: 400px;
+  margin: auto;
 }
 
-.ui.blue.button:focus, .ui.blue.buttons .button:focus{
-    background-color: #2185d0;
+.ui.blue.button:focus,
+.ui.blue.buttons .button:focus {
+  background-color: #2185d0;
 }
 
-.loading-text{
-text-align:center;
+.loading-text {
+  text-align: center;
 }
 
-.post-form{
-    padding-right: 20%;
-    padding-left: 20%;
+.post-form {
+  padding-right: 20%;
+  padding-left: 20%;
 }
-.post-form-col{
-    width:100% !important;
+.post-form-col {
+  width: 100% !important;
 }
 
-@media (max-width: 768px){
-    .ui[class*="three column"].grid>.row>.column{
-        width:100%;
-    }
-    .post-form{
-    width:100%;
-     padding-right: 0%;
+.profile-pic {
+  float: right;
+  border-radius: 5%;
+}
+
+@media (max-width: 1000px) and (orientation: landscape ) ,(max-width: 768px){
+  .ui[class*="three column"].grid > .row > .column {
+    width: 100%;
+  }
+  .post-form {
+    width: 100%;
+    padding-right: 0%;
     padding-left: 0%;
-}
+  }
+  .ui.grid > .row > [class*="three wide"].column {
+    width: 100% !important;
+  }
+  .profile-pic {
+    float: none;
+    display: block;
+    margin: auto auto 15px auto;
+  }
+  .ui.grid > .row > [class*="nine wide"].column {
+    width: 100% !important;
+  }
 }
