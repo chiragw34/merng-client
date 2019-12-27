@@ -36,7 +36,7 @@ function PostForm() {
   }
 
   return (
-    <div>
+    <div className='post-form'>
       <Form onSubmit={onSubmit}>
         <h2>Create a post:</h2>
         <Form.Field>
@@ -47,7 +47,7 @@ function PostForm() {
             value={values.body}
             error={errors.message ? true : false}
           />
-          <Button type="submit" color="blue">
+          <Button type="submit" color="blue" floated='right'>
             Submit
           </Button>
         </Form.Field>

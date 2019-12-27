@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Grid, Transition } from "semantic-ui-react";
+import { Loader, Grid, Transition } from "semantic-ui-react";
 import { useQuery } from "@apollo/react-hooks";
 
 import { AuthContext } from "../context/auth";
@@ -20,17 +20,21 @@ function Home() {
   return (
     <div>
       <Grid columns={3}>
+        {user && (
+          <Grid.Row>
+            <Grid.Column className="post-form-col">
+              <PostForm />
+            </Grid.Column>
+          </Grid.Row>
+        )}
+
         <Grid.Row className="page-title">
           <h1>Recent Posts</h1>
         </Grid.Row>
         <Grid.Row>
-          {user && (
-            <Grid.Column>
-              <PostForm />
-            </Grid.Column>
-          )}
           {loading ? (
-            <h1>LOADING POSTS...</h1>
+            // <h1 className='loading-text'>LOADING POSTS...</h1>
+            <Loader active inline="centered" size="big">Fetching posts...</Loader>
           ) : (
             <Transition.Group>
               {posts.data &&
